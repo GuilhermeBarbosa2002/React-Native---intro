@@ -10,10 +10,16 @@ import {
 
 } from 'react-native'
 
+import { useRouter } from 'expo-router'
 import styles from './welcome.style'
-import { icons, SIZES } from '../../../constants'
+import { COLORS, icons, SIZES } from '../../../constants'
+
+const jobTybes = ["Full-time", "Part-time", "Contractor"]
 
 const Welcome = () => {
+ const router = useRouter();
+ const [activeJobType, setActiveJobType] = useState('Full-time')
+
   return (
     <View>
 
@@ -29,9 +35,38 @@ const Welcome = () => {
             value=""
             onChange={() => {}}
             placeholder='What are you looking for'
+            placeholderTextColor={COLORS.gray} //para meter o placeholder com uma cor apresentável
           />
-
+           
         </View>
+
+        <TouchableOpacity style={styles.searchBtn} onPress={() => {}}>
+          <Image
+            source={icons.search}
+            resizeMethod='contain'
+            style={styles.searchBtnImage}          
+          /> 
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.tabsContainer}>
+       <FlatList 
+        data={jobTybes}
+        renderItem={({item}) => (
+            <TouchableOpacity 
+              style={styles.tab(activeJobType, item)}
+              onPress={() =>  {
+                setActiveJobType(item)
+                router.push(`/search/${item}`)
+              }}
+            >
+              <Text styles={styles.tabText(activeJobType, item)}>{item}</Text>
+            </TouchableOpacity>
+        )}
+          keyExtractor={item => item}
+          contentContainerStyle={{columnGap: SIZES.small}}
+          horizontal
+       /> 
 
       </View>
 
