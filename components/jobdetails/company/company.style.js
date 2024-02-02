@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
   },
   locationName: {
     fontSize: SIZES.medium - 2,
-    color: COLORS.gray,
+    color: COLORS.gray2,
     fontFamily: FONT.regular,
     marginLeft: 2,
   },
